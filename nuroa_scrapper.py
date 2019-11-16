@@ -67,7 +67,7 @@ class NuroaScrapper:
         self.data = set()
         
         try:  
-            self.run_crawler()
+            self.runCrawler()
         except Exception as e:
             print('Error extract to data, message error:{0}'.format(e))
             return False
@@ -77,7 +77,7 @@ class NuroaScrapper:
             # for item in self.data:
             #     print(item)
     
-    def run_crawler(self):
+    def runCrawler(self):
 
             self.waitForLoad()
             html = BeautifulSoup(self.driver.page_source,'html.parser')
@@ -95,7 +95,7 @@ class NuroaScrapper:
                 self.driver.execute_script("arguments[0].click();", element_next_link)
                 spinner  = self.driver.find_element_by_id(self.ITEM_SPINNER_ID)
                 WebDriverWait(self.driver, 5).until(EC.invisibility_of_element_located((By.ID, spinner)))
-                self.run_crawler() #recursion
+                self.runCrawler() #recursion
 
             except NoSuchElementException:
                 return #finish recursion
